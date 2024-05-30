@@ -1,35 +1,16 @@
 <template>
-  <Header></Header>
-  <main>
-    
-    <MainBox></MainBox>
-    
-  </main>
+  <div>
+    <router-view :key="$route.path"></router-view>
+  </div>
 </template>
 
 <script>
-  import axios from 'axios';
 
-  import Header from './components/Header.vue';
-  import MainBox from './components/MainBox.vue';
-  
-  export default{
-    components:{
-      Header,
-      MainBox,
-    },
-    data(){
-      return{
-
-      }
-    },
-    mounted() {
-
-    }
+  export default {
+    name: 'App'
   }
-
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>
