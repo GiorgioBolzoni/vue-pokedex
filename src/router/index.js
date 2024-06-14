@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import AppPokedex from '../views/AppPokedex.vue';
+
+const AppPokedex = () => import('../views/AppPokedex.vue');
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,9 +8,9 @@ const router = createRouter({
     {
       path: '/',
       name: 'pokedex',
-      component: AppPokedex
+      component: AppPokedex,
     },
-  ]
-})
+  ],
+});
 
-export default router
+export default router;

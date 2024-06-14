@@ -1,28 +1,43 @@
 <template>
     <div>
-      <SearchPokemon @search="searchPokemon"></SearchPokemon>
-      <section v-if="pokemon && pokemon.sprites && pokemon.sprites.front_default" class="container d-flex flex-column align-items-center">
-        <div class="row py-3">
-              <div class="col-12 text-center fw-bolder" id="pok-name">{{ pokemon.name.toUpperCase() }}</div>
-            </div>
-        <div class="row align-items-center justify-content-center">
-          <div class="col-5 card border-0 rounded-4">
-            <img :src="pokemon.sprites.front_default" class="card-img" alt="pokemon-image" style="width: 300px; z-index: 1000; filter: drop-shadow(10px 10px 4px rgba(0, 0, 0, 0.5));">
-          </div>
-          
-            
-            <div class="d-flex" id="stats">
-                
-            </div>
-          
+    <SearchPokemon @search="searchPokemon"></SearchPokemon>
+    <section v-if="pokemon && pokemon.sprites && pokemon.sprites.front_default" class="container d-flex flex-column align-items-center">
+      <div class="row py-2">
+        <div class="col-12 text-center fw-bolder" id="pok-name">
+          <span v-if="pokemon.game_indices && pokemon.game_indices[19]">#{{ pokemon.game_indices[19].game_index }}</span>
+          {{ pokemon.name.toUpperCase() }}
         </div>
-      </section>
-      <section v-else class="container px-5 py-5 d-flex flex-column align-items-center">
-        <AppLoader class="bg-transparent"></AppLoader>
-      </section>
-    </div>
+      </div>
+      <div class="row align-items-center justify-content-center">
+        <div class="col-3 card border-0 rounded-4">
+          <img :src="pokemon.sprites.front_default" class="card-img" alt="pokemon-image" style="width: 300px; z-index: 1000; filter: drop-shadow(10px 10px 4px rgba(0, 0, 0, 0.5));">
+        </div>
+        <div class="row justify-content-center py-2">
+          <div v-for="type in pokemon.types" :key="type.type.name" class="col-auto px-2">
+            <span class="badge" id="type" :style="{ backgroundColor: getBadgeColor(type.type.name) }">{{ type.type.name }}</span>
+          </div>
+        </div>
+        <div class="row mt-3 justify-content-between p-3 rounded-3" id="details">
+          <div class="col-auto px-2">
+            <div class="stat">HP: {{ pokemon.stats[0].base_stat }}</div>
+            <div class="stat">Attack: {{ pokemon.stats[1].base_stat }}</div>
+            <div class="stat">Defense: {{ pokemon.stats[2].base_stat }}</div>
+          </div>
+          <div class="col-auto px-2">
+            <div class="stat">Speed: {{ pokemon.stats[5].base_stat }}</div>
+            <div class="stat">Special Attack: {{ pokemon.stats[3].base_stat }}</div>
+            <div class="stat">Special Defense: {{ pokemon.stats[4].base_stat }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section v-else class="container px-5 py-5 d-flex flex-column align-items-center">
+      <AppLoader class="bg-transparent"></AppLoader>
+    </section>
+  </div>
   </template>
   
+
   <script>
   import axios from 'axios';
   import AppLoader from './AppLoader.vue';
@@ -64,15 +79,63 @@
           this.isLoading = false;
         }
       },
+      getBadgeColor(type) {
+        const typeColors = {
+          normal: '#A8A77A',
+          fighting: '#C22E28',
+          flying: '#A98FF3',
+          poison: '#A33EA1',
+          ground: '#E2BF65',
+          rock: '#B6A136',
+          bug: '#A6B91A',
+          ghost: '#735797',
+          steel: '#B7B7CE',
+          fire: '#EE8130',
+          water: '#6390F0',
+          grass: '#7AC74C',
+          electric: '#F7D02C',
+          psychic: '#F95587',
+          ice: '#96D9D6',
+          dragon: '#6F35FC',
+          dark: '#705746',
+          fairy: '#D685AD',
+        };
+        return typeColors[type] || '#777'; 
+      },
     },
   };
   </script>
   
+
+  
   <style scoped>
-    #pok-name{
-        color: #FFCE31;
-        font-size: 1.5rem;
-        filter: drop-shadow(5px 5px 2px rgb(0, 0, 0, 0.5));
-    }
+  #pok-name {
+    color: #FFCE31;
+    font-size: 1.5rem;
+    filter: drop-shadow(5px 5px 2px rgb(0, 0, 0, 0.5));
+  }
+  
+  .badge {
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+  }
+  
+  .stat {
+    font-size: 1rem;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  #details{
+    box-shadow: 4px 4px 15px inset black;
+    background-color: #c24242e7;
+  }
+  #type{
+    box-shadow: 3px 3px 10px black;
+  }
   </style>
+  
+
   

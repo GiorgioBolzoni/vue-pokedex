@@ -20,7 +20,6 @@ export default {
   data() {
     return {
       activeIndex: 0,
-      shiny: false,
       loader: true,
     };
   },
