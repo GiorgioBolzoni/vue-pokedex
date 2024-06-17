@@ -1,7 +1,9 @@
 <template>
   <section id="search-box" class="mx-5 py-2">
-    <input v-model="searchTerm" type="search" placeholder="Search..." name="search-pokemon" id="search-pokemon" @keyup.enter="onSearch">
-    <button @click="onSearch" type="submit"><i class="fa fa-search"></i></button>
+    <form @submit.prevent="search">
+      <input v-model="pokemonName" type="search" placeholder="Search..." name="search-pokemon" id="search-pokemon">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
   </section>
 </template>
 
@@ -10,22 +12,22 @@ export default {
   name: 'SearchPokemon',
   data() {
     return {
-      searchTerm: '',
+      pokemonName: '',
     };
   },
   methods: {
-    onSearch() {
-      if (this.searchTerm) {
-        this.$emit('search', this.searchTerm);
+    search() {
+      if (this.pokemonName) {
+        this.$emit('search', this.pokemonName);
       } else {
-        alert('Please enter a valid Pokemon');
+        alert('Please enter a valid Pokemon name.');
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 button {
   background: #0095e6;
   color: white;
