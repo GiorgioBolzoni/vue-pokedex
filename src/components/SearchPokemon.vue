@@ -28,12 +28,17 @@ export default {
 </script>
 
 <style scoped>
+#search-pokemon{
+  border-radius: 4px 0 0 4px;
+}
 button {
   background: #0095e6;
   color: white;
   border: 1px solid grey;
   border-left: none; /* Prevent double borders */
   cursor: pointer;
+  border-radius: 0 4px 4px 0;
+
 }
 button:hover {
   background-color: #3761A8;

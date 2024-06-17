@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       activeIndex: 0,
-      loader: true,
+      isLoading: true,
     };
   },
   computed: {
@@ -36,17 +36,16 @@ export default {
           requests.push(axios.get(`${store.apiUrl}${i}`));
         }
         const responses = await Promise.all(requests);
-
         responses.forEach(response => {
           store.pokemons.push(response.data);
         });
-        this.loader = false;
+        this.isLoading = false;
       } catch (error) {
         console.error("Errore durante le richieste API:", error);
       }
     },
     changePokemon(entry) {
-      const selectedPokemon = store.pokemons.find(pokemon => pokemon.id && pokemon.id === entry);
+      const selectedPokemon = store.pokemons.find(pokemon => pokemon.id === entry);
       if (selectedPokemon) {
         this.activeIndex = store.pokemons.indexOf(selectedPokemon);
       }
@@ -61,16 +60,15 @@ export default {
       this.activeIndex = store.pokemons.indexOf(newPokemon);
     },
   },
-  mounted() {
-    this.getPokemons().then(() => {
-      if (store.pokemons.length > 0) {
-        this.changePokemon(store.pokemons[0].id);
-      }
-    });
+  async mounted() {
+    await this.getPokemons();
+    if (store.pokemons.length > 0) {
+      this.changePokemon(store.pokemons[0].id);
+    }
   },
 };
 </script>
 
 <style scoped>
-/* Aggiungi qui i tuoi stili */
+
 </style>

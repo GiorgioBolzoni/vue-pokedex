@@ -7,23 +7,26 @@
         <span class="mx-2 fw-bolder">CATCH IT</span>
       </div>
     </div>
-    <section v-if="pokemon && pokemon.sprites && pokemon.sprites.front_default" class="container d-flex flex-column align-items-center">
-      <div class="row py-1">
+    <section v-if="isLoading" class="container px-5 py-5 d-flex flex-column align-items-center">
+      <AppLoader class="bg-transparent"></AppLoader>
+    </section>
+    <section v-else-if="pokemon && pokemon.sprites && pokemon.sprites.front_default" class="container d-flex flex-column align-items-center">
+      <div class="row">
         <div class="col-12 text-center fw-bolder" id="pok-name">
           <span v-if="pokemon.game_indices && pokemon.game_indices[19]">#{{ pokemon.game_indices[19].game_index }}</span>
           {{ pokemon.name.toUpperCase() }}
         </div>
       </div>
       <div class="row align-items-center justify-content-center">
-        <div class="col-3 card border-0 rounded-4">
+        <div class="col-3 my-2 card border-0 rounded-4">
           <img :src="pokemon.sprites.front_default" class="card-img" alt="pokemon-image" style="width: 300px; z-index: 1000; filter: drop-shadow(10px 10px 4px rgba(0, 0, 0, 0.5));">
         </div>
-        <div class="row justify-content-center py-1">
+        <div class="row justify-content-center pt-1">
           <div v-for="type in pokemon.types" :key="type.type.name" class="col-auto px-2">
             <span class="badge" id="type" :style="{ backgroundColor: getBadgeColor(type.type.name) }">{{ type.type.name }}</span>
           </div>
         </div>
-        <div class="row mt-3 justify-content-between p-3 rounded-3" id="details">
+        <div class="row mt-3 justify-content-between p-2 rounded-3" id="details">
           <div class="col-auto px-2">
             <div class="stat">HP: {{ pokemon.stats[0].base_stat }}</div>
             <div class="stat">Attack: {{ pokemon.stats[1].base_stat }}</div>
@@ -36,9 +39,6 @@
           </div>
         </div>
       </div>
-    </section>
-    <section v-else class="container px-5 py-5 d-flex flex-column align-items-center">
-      <AppLoader class="bg-transparent"></AppLoader>
     </section>
   </div>
 </template>
@@ -118,7 +118,7 @@ export default {
 
 <style scoped>
 #pok-name {
-  color: #FFCE31;
+  color: #ffce31;
   font-size: 1.5rem;
   filter: drop-shadow(5px 5px 2px rgb(0, 0, 0, 0.5));
 }
