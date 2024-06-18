@@ -129,7 +129,27 @@ export default {
   border-radius: 0.25rem;
   font-size: 1rem;
 }
+.card {
+  max-height: 10rem;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
 
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
 .stat {
   font-size: 1rem;
   color: white;
