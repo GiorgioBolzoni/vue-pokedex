@@ -166,7 +166,7 @@ export default {
 #btn-catchit {
   width: 70px;
   height: 70px;
-  background-image: url("images/btn-pokeball.png");
+  background-image: url("/images/btn-pokeball.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
